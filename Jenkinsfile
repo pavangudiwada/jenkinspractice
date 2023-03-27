@@ -30,6 +30,10 @@ pipeline {
             steps {
                 script {
                     echo "deploying"
+                    def dockerCmd = 'docker run -p 3080:3080 -d pavangudiwada/techworldwithnana:v1'
+                    sshagent(['ec2-server-key']){
+                        ssh "ssh -o StrictHostKeyChecking=no ec2-user@44.211.47.92 $(dockerCmd)"
+                    }
                     //gv.deployApp()
                 }
             }
